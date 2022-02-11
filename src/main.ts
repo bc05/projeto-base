@@ -1,8 +1,30 @@
+import { INestApplication } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
 import { AppModule } from './app.module';
+import { Configuracao, IConfiguracao } from './config/configuracao';
+
+function iniciarSwagger(app: INestApplication): void {
+  const configuracaoSwagger = new DocumentBuilder()
+    .setTitle('Projeto Base')
+    .setDescription('Projeto Base API descrição')
+    .setVersion('1.0')
+    .build();
+
+  const documento = SwaggerModule.createDocument(app, configuracaoSwagger);
+  SwaggerModule.setup('api', app, documento);
+}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  const configService = app.get(ConfigService);
+
+  iniciarSwagger(app);
+
+  await app.listen(
+    configService.get<IConfiguracao[Configuracao.PORT]>(Configuracao.PORT),
+  );
 }
 bootstrap();
