@@ -4,7 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
-import { Configuracao, IConfiguracao } from './config/configuracao';
+import { IConfiguracao, TipoConfiguracao } from './configuracao/configuracao';
 
 function iniciarSwagger(app: INestApplication): void {
   const configuracaoSwagger = new DocumentBuilder()
@@ -24,7 +24,9 @@ async function bootstrap() {
   iniciarSwagger(app);
 
   await app.listen(
-    configService.get<IConfiguracao[Configuracao.PORT]>(Configuracao.PORT),
+    configService.get<IConfiguracao[TipoConfiguracao.PORT]>(
+      TipoConfiguracao.PORT,
+    ),
   );
 }
 bootstrap();
