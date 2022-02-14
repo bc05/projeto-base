@@ -13,7 +13,7 @@ export enum TipoConfiguracao {
 }
 
 export const configuracao = (): IConfiguracao => {
-  const caminhoArquivo = join(__dirname, '..', 'variaveis.ini');
+  const caminhoArquivo = join(__dirname, 'variaveis.ini');
   const arquivoVariaveis = parse(readFileSync(caminhoArquivo, 'utf-8'));
 
   return {

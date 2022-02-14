@@ -4,7 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
-import { IConfiguracao, TipoConfiguracao } from './configuracao/configuracao';
+import { IConfiguracao, TipoConfiguracao } from './configuracao';
 
 function iniciarSwagger(app: INestApplication): void {
   const configuracaoSwagger = new DocumentBuilder()

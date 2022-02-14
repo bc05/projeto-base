@@ -4,6 +4,7 @@ import {
   MongooseModuleOptions,
   MongooseOptionsFactory,
 } from '@nestjs/mongoose';
+
 import { TipoConfiguracao } from './configuracao';
 
 @Injectable()
