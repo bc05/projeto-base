@@ -1,0 +1,87 @@
+{
+  openapi: '3.0.0',
+  paths:
+    {
+      /:
+        {
+          get:
+            {
+              operationId: 'AppController_get',
+              parameters: [],
+              responses:
+                {
+                  200:
+                    {
+                      description: '',
+                      content:
+                        {
+                          application/json:
+                            {
+                              schema:
+                                {
+                                  $ref: '#/components/schemas/RespostaSaudeDto',
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    },
+  info:
+    {
+      title: 'Projeto Base',
+      description: 'Projeto Base API descrição',
+      version: '1.0',
+      contact: {},
+    },
+  tags: [],
+  servers: [],
+  components:
+    {
+      schemas:
+        {
+          SaudeDto:
+            {
+              type: 'object',
+              properties:
+                {
+                  versao:
+                    {
+                      type: 'string',
+                      description: 'Versão do sistema',
+                      example: '1.0.0',
+                    },
+                  status:
+                    {
+                      type: 'string',
+                      description: 'Status do sistema',
+                      example: 'ok',
+                    },
+                },
+              required: ['versao', 'status'],
+            },
+          RespostaSaudeDto:
+            {
+              type: 'object',
+              properties:
+                {
+                  mensagem:
+                    {
+                      type: 'string',
+                      description: 'Mensagem de retorno',
+                      example: 'Registro inserido com sucesso',
+                    },
+                  status:
+                    {
+                      type: 'number',
+                      description: 'Status da resposta',
+                      example: 200,
+                    },
+                  resultado: { $ref: '#/components/schemas/SaudeDto' },
+                },
+              required: ['resultado'],
+            },
+        },
+    },
+}
