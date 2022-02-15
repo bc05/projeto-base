@@ -14,7 +14,7 @@ function iniciarSwagger(app: INestApplication): void {
     .build();
 
   const documento = SwaggerModule.createDocument(app, configuracaoSwagger);
-  SwaggerModule.setup('api', app, documento);
+  SwaggerModule.setup('swagger', app, documento);
 }
 
 async function bootstrap() {
