@@ -1,6 +1,6 @@
-import { readFileSync } from 'fs';
 import { parse } from 'ini';
-import { join } from 'path';
+
+import { lerArquivo } from './comum/utils/arquivos';
 
 export interface IConfiguracao {
   [TipoConfiguracao.PORT]: number;
@@ -13,8 +13,7 @@ export enum TipoConfiguracao {
 }
 
 export const configuracao = (): IConfiguracao => {
-  const caminhoArquivo = join(__dirname, 'variaveis.ini');
-  const arquivoVariaveis = parse(readFileSync(caminhoArquivo, 'utf-8'));
+  const arquivoVariaveis = parse(lerArquivo([__dirname, 'variaveis.ini']));
 
   return {
     [TipoConfiguracao.PORT]: arquivoVariaveis[TipoConfiguracao.PORT],
