@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { lerArquivo } from './comum/utils/arquivos';
+import { lerArquivo } from './utils/arquivos';
 
 @Injectable()
 export class AppService {
