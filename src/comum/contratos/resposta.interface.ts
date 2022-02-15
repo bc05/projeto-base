@@ -1,7 +1,7 @@
 export interface IResposta<T> {
   mensagem?: string;
   status?: number;
-  data: T;
+  resultado: T;
 }
 
 export interface IRespostaPaginada<T> extends IResposta<T> {
