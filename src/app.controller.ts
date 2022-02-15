@@ -1,21 +1,23 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 
-import { ISaude } from './app.interface';
 import { AppService } from './app.service';
+import { RespostaSaudeDto, SaudeDto } from './saude.dto';
+import { RespostaDto } from './comum/dtos/resposta.dto';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @ApiOkResponse()
+  @ApiOkResponse({
+    type: () => RespostaSaudeDto,
+  })
   @Get()
-  get(): ISaude {
+  get(): RespostaDto<SaudeDto> {
     const versao = this.appService.obterVersao();
 
-    return {
-      status: 'ok',
-      versao,
-    };
+    return new RespostaDto<SaudeDto>({
+      resultado: { status: 'ok', versao },
+    });
   }
 }
