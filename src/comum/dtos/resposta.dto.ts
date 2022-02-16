@@ -1,6 +1,25 @@
+import { HttpStatus } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IResposta } from '../contratos/resposta.interface';
+import { IResposta, IRespostaSimples } from '../contratos/resposta.interface';
+
+export class RespostaSimplesDto implements IRespostaSimples {
+  @ApiProperty({
+    description: 'Mensagem de retorno',
+    example: 'Registro inserido com sucesso',
+  })
+  mensagem: string;
+
+  @ApiProperty({
+    description: 'Status da resposta',
+    example: HttpStatus.OK,
+  })
+  status: number;
+
+  constructor(objeto: IRespostaSimples) {
+    Object.assign(this, objeto);
+  }
+}
 
 export class RespostaDto<T> implements IResposta<T> {
   @ApiProperty({
