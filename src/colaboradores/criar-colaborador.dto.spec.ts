@@ -10,8 +10,8 @@ describe('CriarColaboradorDto', () => {
     'Validar os objeto: %s com quantidade de erros: %s',
     (objeto, totalErrosEsperados) => {
       it('deve ser inválido', async () => {
-        const dtoMontado = plainToInstance(CriarColaboradorDto, objeto);
-        const erros = await validate(dtoMontado);
+        const sut = plainToInstance(CriarColaboradorDto, objeto);
+        const erros = await validate(sut);
 
         expect(erros).toHaveLength(totalErrosEsperados);
       });
