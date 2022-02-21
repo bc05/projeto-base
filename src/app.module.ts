@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ColaboradoresModule } from './colaboradores/colaboradores.module';
 import { configuracao } from './configuracao';
 
 import { MongooseConfigService } from './mongoose.service';
@@ -17,6 +18,7 @@ import { MongooseConfigService } from './mongoose.service';
       useClass: MongooseConfigService,
       imports: [ConfigModule],
     }),
+    ColaboradoresModule,
   ],
   controllers: [AppController],
   providers: [AppService],

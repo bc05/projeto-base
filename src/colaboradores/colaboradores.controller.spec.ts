@@ -1,22 +1,37 @@
+import { Test } from '@nestjs/testing';
 import { ColaboradoresController } from './colaboradores.controller';
 
-describe('ColaboradoresController', () => {
-  let controller: ColaboradoresController;
+import { ColaboradoresService } from './colaboradores.service';
 
-  beforeEach(() => {
-    controller = new ColaboradoresController();
+describe('ColaboradoresController', () => {
+  let sut: ColaboradoresController;
+
+  beforeEach(async () => {
+    const module = await Test.createTestingModule({
+      controllers: [ColaboradoresController],
+      providers: [
+        {
+          provide: ColaboradoresService,
+          useValue: {
+            criar: jest.fn(async () => true),
+          },
+        },
+      ],
+    }).compile();
+
+    sut = module.get<ColaboradoresController>(ColaboradoresController);
   });
 
   it('deve estar definido', () => {
-    expect(controller).toBeDefined();
+    expect(sut).toBeDefined();
   });
 
   describe('criar colaboradores', () => {
     it('deve estar definido o método', () => {
-      expect(controller.criar).toBeDefined();
+      expect(sut.criar).toBeDefined();
     });
 
-    it('deve retornar resposta de sucesso', () => {
+    it('deve retornar resposta de sucesso', async () => {
       const dados = {
         nome: 'Teste',
         email: 'teste@mail.com',
@@ -27,7 +42,8 @@ describe('ColaboradoresController', () => {
         status: 201,
       };
 
-      expect(controller.criar(dados)).toMatchObject(esperado);
+      const resposta = await sut.criar(dados);
+      expect(resposta).toMatchObject(esperado);
     });
   });
 });
