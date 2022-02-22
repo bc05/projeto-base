@@ -1,3 +1,5 @@
+import { ClassConstructor, Expose, plainToClass } from 'class-transformer';
+
 import { HttpStatus } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -8,6 +10,7 @@ export class RespostaSimplesDto implements IRespostaSimples {
     description: 'Mensagem de retorno',
     example: 'Registro inserido com sucesso',
   })
+  @Expose()
   mensagem: string;
 
   @ApiProperty({
@@ -37,8 +40,35 @@ export class RespostaDto<T> implements IResposta<T> {
   status?: number;
 
   resultado: T;
+}
 
-  constructor(objeto: IResposta<T>) {
-    Object.assign(this, objeto);
+export class FabricaRepostaDto {
+  public static construir<T>(
+    classe: ClassConstructor<T>,
+    resultado: T | T[],
+    dadosResposta?: Omit<IResposta<T>, 'resultado'>,
+  ): RespostaDto<T> {
+    const resultadoSerializado = FabricaRepostaDto.serializarResultado(
+      classe,
+      resultado,
+    );
+
+    return plainToClass(RespostaDto, {
+      ...dadosResposta,
+      resultado: resultadoSerializado,
+    });
+  }
+
+  private static serializarResultado<T>(
+    classe: ClassConstructor<T>,
+    resultado: T | T[],
+  ): T | T[] {
+    if (Array.isArray(resultado)) {
+      return resultado.map((item) =>
+        plainToClass(classe, item, { excludeExtraneousValues: true }),
+      );
+    }
+
+    return plainToClass(classe, resultado, { excludeExtraneousValues: true });
   }
 }
