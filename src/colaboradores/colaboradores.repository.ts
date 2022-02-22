@@ -8,8 +8,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { Colaborador, ColaboradorDocument } from './colaborador.schema';
-import { IContrarPorFiltros } from './contar-filtros.interface';
-import { CriarColaboradorDto } from './criar-colaborador.dto';
+import { IContrarPorFiltros } from './contratos/contar-filtros.interface';
+import { CriarColaboradorDto } from './dtos/criar-colaborador.dto';
 
 interface IColaboradoresRepository
   extends IRepositoryCriar<CriarColaboradorDto, ColaboradorDocument>,

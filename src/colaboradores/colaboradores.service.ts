@@ -1,7 +1,7 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { ColaboradoresRepository } from './colaboradores.repository';
 
-import { CriarColaboradorDto } from './criar-colaborador.dto';
+import { CriarColaboradorDto } from './dtos/criar-colaborador.dto';
 
 @Injectable()
 export class ColaboradoresService {

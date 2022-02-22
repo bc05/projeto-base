@@ -2,7 +2,7 @@ import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import {
   mensagemInvalido,
   mensagemObrigatorio,
-} from '../comum/mensagens-validacao';
+} from '../../comum/mensagens-validacao';
 
 export class CriarColaboradorDto {
   @IsString({

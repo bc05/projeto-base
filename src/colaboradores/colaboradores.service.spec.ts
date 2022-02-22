@@ -1,13 +1,13 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test } from '@nestjs/testing';
 import { Model } from 'mongoose';
-import { Colaborador, ColaboradorDocumento } from './colaborador.schema';
+import { Colaborador, ColaboradorDocument } from './colaborador.schema';
 import { ColaboradoresController } from './colaboradores.controller';
 import { ColaboradoresRepository } from './colaboradores.repository';
 import { ColaboradoresService } from './colaboradores.service';
 
 describe('ColaboradoresService', () => {
-  let mockColaboradorModel: Model<ColaboradorDocumento>;
+  let mockColaboradorModel: Model<ColaboradorDocument>;
   let mockColaboradorRepository: ColaboradoresRepository;
   let sut: ColaboradoresService;
 
@@ -24,7 +24,7 @@ describe('ColaboradoresService', () => {
       ],
     }).compile();
 
-    mockColaboradorModel = module.get<Model<ColaboradorDocumento>>(
+    mockColaboradorModel = module.get<Model<ColaboradorDocument>>(
       getModelToken(Colaborador.name),
     );
     mockColaboradorRepository = module.get<ColaboradoresRepository>(
@@ -47,7 +47,7 @@ describe('ColaboradoresService', () => {
       };
       jest
         .spyOn(mockColaboradorRepository, 'criar')
-        .mockResolvedValueOnce(colaborador as ColaboradorDocumento);
+        .mockResolvedValueOnce(colaborador as ColaboradorDocument);
 
       jest
         .spyOn(mockColaboradorRepository, 'contarPorFiltros')
@@ -76,7 +76,7 @@ describe('ColaboradoresService', () => {
       };
       jest
         .spyOn(mockColaboradorRepository, 'criar')
-        .mockResolvedValueOnce(colaborador as ColaboradorDocumento);
+        .mockResolvedValueOnce(colaborador as ColaboradorDocument);
       jest
         .spyOn(mockColaboradorRepository, 'contarPorFiltros')
         .mockResolvedValueOnce(0);

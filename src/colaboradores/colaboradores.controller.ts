@@ -4,7 +4,7 @@ import { RespostaSimplesDto } from '../comum/dtos/resposta.dto';
 import { mensagemResposta, TipoOperacaoCRUD } from '../comum/mensagens';
 import { nomeColaboradoresSchema } from './colaborador.schema';
 import { ColaboradoresService } from './colaboradores.service';
-import { CriarColaboradorDto } from './criar-colaborador.dto';
+import { CriarColaboradorDto } from './dtos/criar-colaborador.dto';
 
 @Controller(nomeColaboradoresSchema)
 export class ColaboradoresController {
