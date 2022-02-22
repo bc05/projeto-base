@@ -20,4 +20,8 @@ export class ColaboradoresService {
 
     return !!novoColaborador.id;
   }
+
+  async listar() {
+    return [{ nome: '', email: '' }];
+  }
 }

@@ -1,6 +1,10 @@
-import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
+import { ListarColaboradoresDto } from './dtos/listar-colaboradores.dto';
+import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common';
 
-import { construirRespostaSimplesDto } from '../comum/dtos/resposta.dto';
+import {
+  construirRespostaColecaoDto,
+  construirRespostaSimplesDto,
+} from '../comum/dtos/resposta.dto';
 import { mensagemResposta, TipoOperacaoCRUD } from '../comum/mensagens';
 import { nomeColaboradoresSchema } from './colaborador.schema';
 import { ColaboradoresService } from './colaboradores.service';
@@ -18,5 +22,12 @@ export class ColaboradoresController {
       mensagem: mensagemResposta('Colaborador', TipoOperacaoCRUD.CRIAR),
       status: HttpStatus.CREATED,
     });
+  }
+
+  @Get()
+  async listar() {
+    const resultado = await this.service.listar();
+
+    return construirRespostaColecaoDto(ListarColaboradoresDto, resultado);
   }
 }
