@@ -1,6 +1,6 @@
 import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
 
-import { RespostaSimplesDto } from '../comum/dtos/resposta.dto';
+import { construirRespostaSimplesDto } from '../comum/dtos/resposta.dto';
 import { mensagemResposta, TipoOperacaoCRUD } from '../comum/mensagens';
 import { nomeColaboradoresSchema } from './colaborador.schema';
 import { ColaboradoresService } from './colaboradores.service';
@@ -13,7 +13,8 @@ export class ColaboradoresController {
   @Post()
   async criar(@Body() criarColaboradorDto: CriarColaboradorDto) {
     await this.service.criar(criarColaboradorDto);
-    return new RespostaSimplesDto({
+
+    return construirRespostaSimplesDto({
       mensagem: mensagemResposta('Colaborador', TipoOperacaoCRUD.CRIAR),
       status: HttpStatus.CREATED,
     });

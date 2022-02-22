@@ -17,11 +17,8 @@ export class RespostaSimplesDto implements IRespostaSimples {
     description: 'Status da resposta',
     example: HttpStatus.OK,
   })
+  @Expose()
   status: number;
-
-  constructor(objeto: IRespostaSimples) {
-    Object.assign(this, objeto);
-  }
 }
 
 export class RespostaDto<T> implements IResposta<T> {
@@ -30,6 +27,7 @@ export class RespostaDto<T> implements IResposta<T> {
     example: 'Registro inserido com sucesso',
     required: false,
   })
+  @Expose()
   mensagem?: string;
 
   @ApiProperty({
@@ -37,38 +35,68 @@ export class RespostaDto<T> implements IResposta<T> {
     example: 200,
     required: false,
   })
+  @Expose()
   status?: number;
 
+  @Expose()
   resultado: T;
 }
 
-export class FabricaRepostaDto {
-  public static construir<T>(
-    classe: ClassConstructor<T>,
-    resultado: T | T[],
-    dadosResposta?: Omit<IResposta<T>, 'resultado'>,
-  ): RespostaDto<T> {
-    const resultadoSerializado = FabricaRepostaDto.serializarResultado(
-      classe,
-      resultado,
+export function serializarResultado<T>(
+  classe: ClassConstructor<T>,
+  resultado: T | T[],
+): T | T[] {
+  if (Array.isArray(resultado)) {
+    return resultado.map((item) =>
+      plainToClass(classe, item, { excludeExtraneousValues: true }),
     );
+  }
 
-    return plainToClass(RespostaDto, {
+  return plainToClass(classe, resultado, { excludeExtraneousValues: true });
+}
+
+export function construirRespostaSimplesDto(
+  dadosResposta: IRespostaSimples,
+): RespostaSimplesDto {
+  return plainToClass(RespostaSimplesDto, dadosResposta, {
+    excludeExtraneousValues: true,
+  });
+}
+
+export function construirRespostaObjetoDto<T>(
+  classe: ClassConstructor<T>,
+  resultado: T,
+  dadosResposta?: Omit<IResposta<T>, 'resultado'>,
+): RespostaDto<T> {
+  const resultadoSerializado = serializarResultado(classe, resultado);
+
+  return plainToClass(
+    RespostaDto,
+    {
       ...dadosResposta,
       resultado: resultadoSerializado,
-    });
-  }
+    },
+    {
+      excludeExtraneousValues: true,
+    },
+  );
+}
 
-  private static serializarResultado<T>(
-    classe: ClassConstructor<T>,
-    resultado: T | T[],
-  ): T | T[] {
-    if (Array.isArray(resultado)) {
-      return resultado.map((item) =>
-        plainToClass(classe, item, { excludeExtraneousValues: true }),
-      );
-    }
+export function construirRespostaColecaoDto<T>(
+  classe: ClassConstructor<T>,
+  resultado: T[],
+  dadosResposta?: Omit<IResposta<T>, 'resultado'>,
+): RespostaDto<T[]> {
+  const resultadoSerializado = serializarResultado(classe, resultado);
 
-    return plainToClass(classe, resultado, { excludeExtraneousValues: true });
-  }
+  return plainToClass(
+    RespostaDto,
+    {
+      ...dadosResposta,
+      resultado: resultadoSerializado,
+    },
+    {
+      excludeExtraneousValues: true,
+    },
+  );
 }
