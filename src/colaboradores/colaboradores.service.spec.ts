@@ -7,7 +7,6 @@ import { ColaboradoresRepository } from './colaboradores.repository';
 import { ColaboradoresService } from './colaboradores.service';
 
 describe('ColaboradoresService', () => {
-  let mockColaboradorModel: Model<ColaboradorDocument>;
   let mockColaboradorRepository: ColaboradoresRepository;
   let sut: ColaboradoresService;
 
@@ -24,9 +23,6 @@ describe('ColaboradoresService', () => {
       ],
     }).compile();
 
-    mockColaboradorModel = module.get<Model<ColaboradorDocument>>(
-      getModelToken(Colaborador.name),
-    );
     mockColaboradorRepository = module.get<ColaboradoresRepository>(
       ColaboradoresRepository,
     );
