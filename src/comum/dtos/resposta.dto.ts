@@ -59,6 +59,7 @@ export function construirRespostaSimplesDto(
   dadosResposta: IRespostaSimples,
 ): RespostaSimplesDto {
   return plainToClass(RespostaSimplesDto, dadosResposta, {
+    exposeUnsetFields: false,
     excludeExtraneousValues: true,
   });
 }
@@ -77,6 +78,7 @@ export function construirRespostaObjetoDto<T>(
       resultado: resultadoSerializado,
     },
     {
+      exposeUnsetFields: false,
       excludeExtraneousValues: true,
     },
   );
@@ -97,6 +99,7 @@ export function construirRespostaColecaoDto<T>(
     },
     {
       excludeExtraneousValues: true,
+      exposeUnsetFields: false,
     },
   );
 }
