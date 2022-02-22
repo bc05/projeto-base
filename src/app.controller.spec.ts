@@ -1,6 +1,5 @@
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { RespostaSaudeDto } from './saude.dto';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -21,7 +20,7 @@ describe('AppController', () => {
     });
 
     it('Deve retornar um objeto com os dados de status e versão', () => {
-      const resposta: RespostaSaudeDto = {
+      const resposta = {
         resultado: {
           status: 'ok',
           versao: '1.0.0',

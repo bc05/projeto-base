@@ -1,3 +1,4 @@
+import { Expose } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import {
   mensagemInvalido,
@@ -11,6 +12,7 @@ export class CriarColaboradorDto {
   @IsNotEmpty({
     message: mensagemObrigatorio('nome'),
   })
+  @Expose()
   nome: string;
 
   @IsNotEmpty({
@@ -22,5 +24,6 @@ export class CriarColaboradorDto {
       message: mensagemInvalido('e-mail'),
     },
   )
+  @Expose()
   email: string;
 }
