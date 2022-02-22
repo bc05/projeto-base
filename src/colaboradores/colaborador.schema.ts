@@ -2,9 +2,13 @@ import { Document } from 'mongoose';
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-export type ColaboradorDocumento = Colaborador & Document;
+export type ColaboradorDocument = Colaborador & Document;
 
-@Schema()
+export const nomeColaboradoresSchema = 'colaboradores';
+
+@Schema({
+  collection: nomeColaboradoresSchema,
+})
 export class Colaborador {
   @Prop({ required: true })
   nome: string;
