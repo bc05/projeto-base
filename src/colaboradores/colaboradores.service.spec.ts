@@ -77,11 +77,37 @@ describe('ColaboradoresService', () => {
         .spyOn(mockColaboradorRepository, 'contarPorFiltros')
         .mockResolvedValueOnce(0);
 
-      jest.spyOn(mockColaboradorRepository, 'criar');
-
       await sut.criar(dados);
 
       expect(mockColaboradorRepository.criar).toHaveBeenCalledWith(dados);
+    });
+  });
+
+  describe('listar', () => {
+    it('deve listar os colaboradores', async () => {
+      const colaboradores = [
+        { nome: 'João Paulo', email: 'jp@colaboradores.net' },
+      ];
+      jest
+        .spyOn(mockColaboradorRepository, 'listar')
+        .mockResolvedValueOnce(colaboradores as ColaboradorDocument[]);
+
+      const retorno = await sut.listar();
+
+      expect(retorno).toEqual(colaboradores);
+    });
+
+    it('deve chamar o repository', async () => {
+      const colaboradores = [
+        { nome: 'João Paulo', email: 'jp@colaboradores.net' },
+      ];
+      jest
+        .spyOn(mockColaboradorRepository, 'listar')
+        .mockResolvedValueOnce(colaboradores as ColaboradorDocument[]);
+
+      await sut.listar();
+
+      expect(mockColaboradorRepository.listar).toHaveBeenCalled();
     });
   });
 });

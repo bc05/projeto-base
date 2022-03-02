@@ -22,6 +22,6 @@ export class ColaboradoresService {
   }
 
   async listar() {
-    return [{ nome: '', email: '' }];
+    return this.repository.listar();
   }
 }

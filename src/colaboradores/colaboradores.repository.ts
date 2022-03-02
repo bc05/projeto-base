@@ -1,3 +1,5 @@
+import { IRepositoryListar } from './../comum/contratos/repository.interface';
+import { ListarColaboradoresDto } from './dtos/listar-colaboradores.dto';
 import { Model } from 'mongoose';
 import {
   IRepositoryContar,
@@ -13,7 +15,8 @@ import { CriarColaboradorDto } from './dtos/criar-colaborador.dto';
 
 interface IColaboradoresRepository
   extends IRepositoryCriar<CriarColaboradorDto, ColaboradorDocument>,
-    IRepositoryContar<IContrarPorFiltros> {}
+    IRepositoryContar<IContrarPorFiltros>,
+    IRepositoryListar<any, ColaboradorDocument> {}
 
 @Injectable()
 export class ColaboradoresRepository implements IColaboradoresRepository {
@@ -28,5 +31,9 @@ export class ColaboradoresRepository implements IColaboradoresRepository {
 
   async criar(dados: CriarColaboradorDto): Promise<ColaboradorDocument> {
     return this.colaboradorModel.create(dados);
+  }
+
+  async listar(filtros?: any): Promise<ColaboradorDocument[]> {
+    return this.colaboradorModel.find();
   }
 }
