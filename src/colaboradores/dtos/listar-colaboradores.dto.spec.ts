@@ -1,5 +1,6 @@
+import { converterObjetoEmClasse } from '../../comum';
 import { ListarColaboradoresDto } from './listar-colaboradores.dto';
-import { plainToInstance } from 'class-transformer';
+
 describe('ListarColaboradoresDto', () => {
   describe.each([
     [
@@ -29,10 +30,9 @@ describe('ListarColaboradoresDto', () => {
     ],
   ])('Valida saída comparando objetos', (objetoEntrada, objetoSaida) => {
     it('Deve retornar um colaborador', () => {
-      const colaboradoresDto = plainToInstance(
+      const colaboradoresDto = converterObjetoEmClasse(
         ListarColaboradoresDto,
         objetoEntrada,
-        { excludeExtraneousValues: true },
       );
 
       expect(colaboradoresDto).toEqual(objetoSaida);
