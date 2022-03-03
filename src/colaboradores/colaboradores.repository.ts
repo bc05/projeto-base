@@ -1,14 +1,13 @@
-import { IRepositoryListar } from './../comum/contratos/repository.interface';
-import { ListarColaboradoresDto } from './dtos/listar-colaboradores.dto';
 import { Model } from 'mongoose';
-import {
-  IRepositoryContar,
-  IRepositoryCriar,
-} from 'src/comum/contratos/repository.interface';
 
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
+import {
+  IRepositoryContar,
+  IRepositoryCriar,
+  IRepositoryListar,
+} from '../comum';
 import { Colaborador, ColaboradorDocument } from './colaborador.schema';
 import { IContrarPorFiltros } from './contratos/contar-filtros.interface';
 import { CriarColaboradorDto } from './dtos/criar-colaborador.dto';

@@ -1,10 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 
 import { AppService } from './app.service';
-import {
-  construirRespostaObjetoDto,
-  RespostaDto,
-} from './comum/dtos/resposta.dto';
+import { construirRespostaObjetoDto, RespostaDto } from './comum';
 import { SaudeDto } from './saude.dto';
 
 @Controller()
