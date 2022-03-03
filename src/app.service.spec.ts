@@ -1,7 +1,7 @@
 import { AppService } from './app.service';
-import { lerArquivo } from './utils/arquivos';
+import { lerArquivo } from './comum';
 
-jest.mock('./utils/arquivos', () => ({
+jest.mock('./comum', () => ({
   lerArquivo: jest.fn(),
 }));
 
