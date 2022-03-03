@@ -1,9 +1,9 @@
-import { Expose } from 'class-transformer';
+import { Allow } from 'class-validator';
 
 export class FiltrosListarColaboradoresDto {
-  @Expose()
+  @Allow()
   nome?: string;
 
-  @Expose()
+  @Allow()
   email?: string;
 }
