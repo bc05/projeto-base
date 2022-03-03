@@ -1,2 +1,2 @@
-export * from './mensagens';
-export * from './mensagens-validacao';
+export * from './resposta.msg';
+export * from './validacao.msg';
