@@ -3,8 +3,9 @@ import { Body, Controller, Get, HttpStatus, Post, Query } from '@nestjs/common';
 import {
   construirRespostaColecaoDto,
   construirRespostaSimplesDto,
+  mensagemResposta,
+  TipoOperacaoCRUD,
 } from '../comum';
-import { mensagemResposta, TipoOperacaoCRUD } from '../comum';
 import { nomeColaboradoresSchema } from './colaborador.schema';
 import { ColaboradoresService } from './colaboradores.service';
 import { CriarColaboradorDto } from './dtos/criar-colaborador.dto';
