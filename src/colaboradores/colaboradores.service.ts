@@ -1,8 +1,10 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { ColaboradorDocument } from './colaborador.schema';
+
 import { ColaboradoresRepository } from './colaboradores.repository';
 
 import { CriarColaboradorDto } from './dtos/criar-colaborador.dto';
+import { FiltrosListarColaboradoresDto } from './dtos/filtros-listar-colaboradores.dto';
 
 @Injectable()
 export class ColaboradoresService {
@@ -22,7 +24,9 @@ export class ColaboradoresService {
     return !!novoColaborador.id;
   }
 
-  async listar(): Promise<ColaboradorDocument[]> {
+  async listar(
+    filtrosListarColaboradoresDto?: FiltrosListarColaboradoresDto,
+  ): Promise<ColaboradorDocument[]> {
     return this.repository.listar();
   }
 }

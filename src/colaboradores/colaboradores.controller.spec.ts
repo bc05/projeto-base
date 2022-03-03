@@ -75,5 +75,17 @@ describe('ColaboradoresController', () => {
 
       expect(mockColaboradoresService.listar).toHaveBeenCalled();
     });
+
+    it('deve fazer a chamada da service passando os parâmetros de filtro', async () => {
+      const filtros = {
+        nome: 'a',
+      };
+
+      jest.spyOn(mockColaboradoresService, 'listar');
+
+      await sut.listar(filtros);
+
+      expect(mockColaboradoresService.listar).toHaveBeenCalledWith(filtros);
+    });
   });
 });

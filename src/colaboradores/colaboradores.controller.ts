@@ -1,14 +1,15 @@
-import { ListarColaboradoresDto } from './dtos/listar-colaboradores.dto';
-import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Post, Query } from '@nestjs/common';
 
 import {
   construirRespostaColecaoDto,
   construirRespostaSimplesDto,
-} from '../comum/dtos/resposta.dto';
-import { mensagemResposta, TipoOperacaoCRUD } from '../comum/mensagens';
+} from '../comum';
+import { mensagemResposta, TipoOperacaoCRUD } from '../comum';
 import { nomeColaboradoresSchema } from './colaborador.schema';
 import { ColaboradoresService } from './colaboradores.service';
 import { CriarColaboradorDto } from './dtos/criar-colaborador.dto';
+import { FiltrosListarColaboradoresDto } from './dtos/filtros-listar-colaboradores.dto';
+import { ListarColaboradoresDto } from './dtos/listar-colaboradores.dto';
 
 @Controller(nomeColaboradoresSchema)
 export class ColaboradoresController {
@@ -25,8 +26,10 @@ export class ColaboradoresController {
   }
 
   @Get()
-  async listar() {
-    const resultado = await this.service.listar();
+  async listar(
+    @Query() filtrosListarColaboradoresDto?: FiltrosListarColaboradoresDto,
+  ) {
+    const resultado = await this.service.listar(filtrosListarColaboradoresDto);
 
     return construirRespostaColecaoDto(ListarColaboradoresDto, resultado);
   }
