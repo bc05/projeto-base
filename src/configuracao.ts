@@ -1,6 +1,6 @@
 import { parse } from 'ini';
 
-import { lerArquivo } from './utils/arquivos';
+import { lerArquivo } from './comum';
 
 export interface IConfiguracao {
   [TipoConfiguracao.PORT]: number;
