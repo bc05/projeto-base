@@ -1,4 +1,5 @@
 import { ConflictException, Injectable } from '@nestjs/common';
+import { ColaboradorDocument } from './colaborador.schema';
 import { ColaboradoresRepository } from './colaboradores.repository';
 
 import { CriarColaboradorDto } from './dtos/criar-colaborador.dto';
@@ -21,7 +22,7 @@ export class ColaboradoresService {
     return !!novoColaborador.id;
   }
 
-  async listar() {
+  async listar(): Promise<ColaboradorDocument[]> {
     return this.repository.listar();
   }
 }

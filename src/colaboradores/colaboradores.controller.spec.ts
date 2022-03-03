@@ -1,6 +1,7 @@
 import { Test } from '@nestjs/testing';
-import { ColaboradoresController } from './colaboradores.controller';
 
+import { ColaboradorDocument } from './colaborador.schema';
+import { ColaboradoresController } from './colaboradores.controller';
 import { ColaboradoresService } from './colaboradores.service';
 
 describe('ColaboradoresController', () => {
@@ -61,7 +62,7 @@ describe('ColaboradoresController', () => {
 
       jest
         .spyOn(mockColaboradoresService, 'listar')
-        .mockResolvedValueOnce(esperado.resultado);
+        .mockResolvedValueOnce(esperado.resultado as ColaboradorDocument[]);
       const resposta = await sut.listar();
 
       expect(resposta).toMatchObject(esperado);
