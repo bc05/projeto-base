@@ -1,6 +1,6 @@
 import { Allow, IsEmail, IsNotEmpty } from 'class-validator';
-import { tratamentoErrosValidacao } from '..';
 import { validarObjeto } from '../../comum';
+import { tratamentoErrosValidacao } from './custom-validation-pipe';
 
 class TesteDto {
   @IsNotEmpty({ message: 'É obrigatório' })
