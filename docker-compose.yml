@@ -53,4 +53,5 @@ services:
   api:
     build: .
     container_name: 'api'
-    network_mode: 'host'
+    ports:
+      - ${API_EXTERNAL_PORT}:3000
