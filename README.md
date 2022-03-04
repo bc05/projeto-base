@@ -14,13 +14,24 @@ intro
 - [MongoDB](https://www.mongodb.com/)
 - [Redis](https://redis.io/)
 
-## Guias de uso
+## Guias de desenvolvimento
+
+### Instalação
+
+- Instalação dos pacotes: `npm install`;
+- Prepara o husky: `npm run prepare`;
+- (Opcional) Docker:
+  - Necessário a instalação e configuração do [Docker](https://www.docker.com/get-started) e [docker-compose](https://docs.docker.com/compose/install/);
+  - Executar o build das imagens: `docker-compose build`;
+  - Subir todos os containers: `docker-compose up -d`;
+  - Subir apenas o container do banco de dados: `docker-compose up -d database`;
+- Subir aplicação: `npm run start:dev`.
+  - Por padrão, a aplicação utiliza a porta 3000.
 
 ### Commits
 
-- O Projeto utiliza um hook git (pré commit) para fazer uma varredura utilizando
-  o prettier visando avaliar se o estilo de código está sendo aplicado.
-- [Husky](https://typicode.github.io/husky/#/)
-- [Convertional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+O Projeto utiliza o [Husky](https://typicode.github.io/husky/#/) para garantir o uso dos padrões de estilo de código e mensagens de commit ([Convertional Commits](https://www.conventionalcommits.org/en/v1.0.0/)).
 
 ### Desenvolvendo uma nova funcionalidade
+
+**_À ser definido._**
