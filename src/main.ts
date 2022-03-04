@@ -4,8 +4,8 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { IConfiguracao, TipoConfiguracao } from './configuracao';
-import { CustomValidationPipe } from './core';
-import { UnprocessableEntityExceptionFilter } from './core/exception/unprocessable-entity-exception-filter';
+import { CustomValidationPipe, HttpExceptionFilter } from './core';
+import { GenericExceptionFilter } from './core/exception/generic-exception-filter';
 
 function iniciarSwagger(app: INestApplication): void {
   const configuracaoSwagger = new DocumentBuilder()
@@ -23,7 +23,8 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
 
   app.useGlobalPipes(new CustomValidationPipe());
-  app.useGlobalFilters(new UnprocessableEntityExceptionFilter());
+  app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalFilters(new GenericExceptionFilter());
 
   iniciarSwagger(app);
 

@@ -1,1 +1,2 @@
-export * from './pipes/custom-validation-pipe';
+export * from './exception';
+export * from './pipes';
