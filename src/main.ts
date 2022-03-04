@@ -1,8 +1,13 @@
-import { HttpException, HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  INestApplication,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { CustomValidationPipe } from './core'; 
+import { CustomValidationPipe } from './core';
 import { AppModule } from './app.module';
 import { IConfiguracao, TipoConfiguracao } from './configuracao';
 
@@ -21,9 +26,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
 
-  app.useGlobalPipes(
-    new CustomValidationPipe(),
-  );
+  app.useGlobalPipes(new CustomValidationPipe());
 
   iniciarSwagger(app);
 
