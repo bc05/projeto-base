@@ -1,15 +1,11 @@
-import {
-  HttpException,
-  HttpStatus,
-  INestApplication,
-  ValidationPipe,
-} from '@nestjs/common';
+import { INestApplication } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { CustomValidationPipe } from './core';
 import { AppModule } from './app.module';
 import { IConfiguracao, TipoConfiguracao } from './configuracao';
+import { CustomValidationPipe } from './core';
+import { UnprocessableEntityExceptionFilter } from './core/exception/unprocessable-entity-exception-filter';
 
 function iniciarSwagger(app: INestApplication): void {
   const configuracaoSwagger = new DocumentBuilder()
@@ -27,6 +23,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
 
   app.useGlobalPipes(new CustomValidationPipe());
+  app.useGlobalFilters(new UnprocessableEntityExceptionFilter());
 
   iniciarSwagger(app);
 
