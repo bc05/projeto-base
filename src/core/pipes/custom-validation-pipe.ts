@@ -1,7 +1,7 @@
 import {
-    UnprocessableEntityException,
-    ValidationError,
-    ValidationPipe
+  UnprocessableEntityException,
+  ValidationError,
+  ValidationPipe,
 } from '@nestjs/common';
 import { flatMap } from 'lodash';
 
