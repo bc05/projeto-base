@@ -8,16 +8,18 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+    networks:
+      - app-network
     ports:
       - ${MONGO_EXTERNAL_PORT}:27017
-  
+
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.6.1
     environment:
       - http.host=0.0.0.0
       - transport.host=localhost
       - network.host=0.0.0.0
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
     ulimits:
       memlock:
         soft: -1
@@ -25,6 +27,8 @@ services:
     mem_limit: 1g
     ports:
       - 9200:9200
+    networks:
+      - app-network
 
   graylog:
     image: graylog/graylog:3.0
@@ -33,9 +37,9 @@ services:
       # Password: admin
       GRAYLOG_ROOT_PASSWORD_SHA2: '${GRAYLOG_PASSWORD_SHA2}'
       GRAYLOG_HTTP_EXTERNAL_URI: 'http://localhost:${GRAYLOG_EXTERNAL_PORT}/'
-      GRAYLOG_MONGODB_URI: "mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@database:27017/graylog?authSource=admin"
-      GRAYLOG_ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
-      GRAYLOG_HTTP_BIND_ADDRESS: "0.0.0.0:${GRAYLOG_EXTERNAL_PORT}"
+      GRAYLOG_MONGODB_URI: 'mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@database:27017/graylog?authSource=admin'
+      GRAYLOG_ELASTICSEARCH_HOSTS: 'http://elasticsearch:9200'
+      GRAYLOG_HTTP_BIND_ADDRESS: '0.0.0.0:${GRAYLOG_EXTERNAL_PORT}'
     depends_on:
       - database
       - elasticsearch
@@ -49,9 +53,19 @@ services:
       - 1514:1514/udp # Syslog UDP
       - 12201:12201 # GELF TCP
       - 12201:12201/udp # GELF UDP
+    networks:
+      - app-network
 
   api:
     build: .
     container_name: 'api'
+    depends_on:
+      - database
+    networks:
+      - app-network
     ports:
       - ${API_EXTERNAL_PORT}:3000
+
+networks:
+  app-network:
+    driver: bridge
