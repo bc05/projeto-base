@@ -4,7 +4,6 @@ import {
   MongooseModuleOptions,
   MongooseOptionsFactory,
 } from '@nestjs/mongoose';
-
 import { TipoConfiguracao } from './configuracao';
 
 @Injectable()
@@ -13,7 +12,7 @@ export class MongooseConfigService implements MongooseOptionsFactory {
 
   createMongooseOptions(): MongooseModuleOptions {
     return {
-      uri: this.configService.get<string>(TipoConfiguracao.MONGODB_URI),
+      uri: this.configService.get<string>(TipoConfiguracao.MONGO_URI),
     };
   }
 }

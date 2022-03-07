@@ -29,8 +29,8 @@ async function bootstrap() {
   iniciarSwagger(app);
 
   await app.listen(
-    configService.get<IConfiguracao[TipoConfiguracao.PORT]>(
-      TipoConfiguracao.PORT,
+    configService.get<IConfiguracao[TipoConfiguracao.API_PORT]>(
+      TipoConfiguracao.API_PORT,
     ),
   );
 }
