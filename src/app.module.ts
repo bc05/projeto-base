@@ -5,7 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ColaboradoresModule } from './colaboradores/colaboradores.module';
 import { configuracao } from './configuracao';
-import { CustomLogger } from './core/logger/custom-logger';
+import { CustomLoggerModule } from './core/logger/custom-logger.module';
 import { MongooseConfigService } from './mongoose.service';
 
 @Module({
@@ -13,12 +13,12 @@ import { MongooseConfigService } from './mongoose.service';
     ConfigModule.forRoot({
       load: [configuracao],
     }),
+    CustomLoggerModule,
     MongooseModule.forRootAsync({
       useClass: MongooseConfigService,
       imports: [ConfigModule],
     }),
     ColaboradoresModule,
-    CustomLogger,
   ],
   controllers: [AppController],
   providers: [AppService],
