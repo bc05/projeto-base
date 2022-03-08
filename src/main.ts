@@ -6,6 +6,7 @@ import { AppModule } from './app.module';
 import { IConfiguracao, TipoConfiguracao } from './configuracao';
 import { CustomValidationPipe, HttpExceptionFilter } from './core';
 import { GenericExceptionFilter } from './core/exception/generic-exception-filter';
+import { CustomLogger } from './core/logger/custom-logger';
 
 function iniciarSwagger(app: INestApplication): void {
   const configuracaoSwagger = new DocumentBuilder()
@@ -19,7 +20,9 @@ function iniciarSwagger(app: INestApplication): void {
 }
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: new CustomLogger(),
+  });
   const configService = app.get(ConfigService);
 
   app.useGlobalPipes(new CustomValidationPipe());
