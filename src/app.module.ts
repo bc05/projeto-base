@@ -5,10 +5,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ColaboradoresModule } from './colaboradores/colaboradores.module';
-import { configuracao } from './configuracao';
-import { BullConfigService } from './core/configuration/bull-config.service';
+import { BullConfigService } from './core/configuration/bull.service';
+import { configuracao } from './core/configuration/configuracao';
+import { MongooseConfigService } from './core/configuration/mongoose.service';
 import { CustomLoggerModule } from './core/logger/custom-logger.module';
-import { MongooseConfigService } from './mongoose.service';
 
 @Module({
   imports: [

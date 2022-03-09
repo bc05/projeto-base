@@ -3,8 +3,11 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import { IConfiguracao, TipoConfiguracao } from './configuracao';
 import { CustomValidationPipe, HttpExceptionFilter } from './core';
+import {
+  IConfiguracao,
+  TipoConfiguracao,
+} from './core/configuration/configuracao';
 import { CustomLogger } from './core/logger/custom-logger';
 
 function iniciarSwagger(app: INestApplication): void {

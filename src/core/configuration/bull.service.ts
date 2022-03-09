@@ -2,7 +2,7 @@ import { SharedBullConfigurationFactory } from '@nestjs/bull';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { QueueOptions } from 'bull';
-import { TipoConfiguracao } from '../../configuracao';
+import { TipoConfiguracao } from './configuracao';
 
 @Injectable()
 export class BullConfigService implements SharedBullConfigurationFactory {

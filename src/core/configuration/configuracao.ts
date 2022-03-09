@@ -1,5 +1,5 @@
 import { parse } from 'ini';
-import { lerArquivo } from './comum';
+import { lerArquivo } from '../../comum';
 
 export interface IConfiguracao {
   [TipoConfiguracao.API_PORT]: number;
@@ -37,7 +37,9 @@ export enum TipoConfiguracao {
 }
 
 export const configuracao = (): IConfiguracao => {
-  const arquivoVariaveis = parse(lerArquivo([__dirname, 'variaveis.ini']));
+  const arquivoVariaveis = parse(
+    lerArquivo([__dirname, '..', '..', 'variaveis.ini']),
+  );
 
   const mongoUri = `mongodb://${
     arquivoVariaveis[TipoConfiguracao.MONGO_USERNAME]

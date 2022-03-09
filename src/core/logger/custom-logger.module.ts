@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { configuracao } from 'src/configuracao';
+import { configuracao } from '../configuration/configuracao';
 import { CustomLogger } from './custom-logger';
 import { GraylogTCPAdapter } from './graylog-tcp-adapter';
 

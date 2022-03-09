@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { TipoConfiguracao } from 'src/configuracao';
 import * as Winston from 'winston';
 import * as WinstonGraylog2 from 'winston-graylog2';
+import { TipoConfiguracao } from '../configuration/configuracao';
 import { ILogErrorMessage, ILoggerAdapter } from './logger-adapter.interface';
 
 @Injectable()
