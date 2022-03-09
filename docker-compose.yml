@@ -1,6 +1,17 @@
 version: '3.8'
 
 services:
+  redis:
+    image: 'redis'
+    restart: always
+    container_name: 'redis'
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    networks:
+      - app-network
+    ports:
+      - ${REDIS_EXTERNAL_PORT}:6379
+
   database:
     image: 'mongo'
     restart: always
@@ -61,6 +72,7 @@ services:
     container_name: 'api'
     depends_on:
       - database
+      - redis
     networks:
       - app-network
     ports:
