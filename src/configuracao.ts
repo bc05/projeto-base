@@ -11,6 +11,9 @@ export interface IConfiguracao {
   [TipoConfiguracao.GRAYLOG_HOST]: string;
   [TipoConfiguracao.GRAYLOG_PORT]: string;
   [TipoConfiguracao.GRAYLOG_BUFFER_SIZE]: string;
+
+  [TipoConfiguracao.REDIS_HOST]: string;
+  [TipoConfiguracao.REDIS_PORT]: number;
 }
 
 export enum TipoConfiguracao {
@@ -28,6 +31,9 @@ export enum TipoConfiguracao {
   GRAYLOG_HOST = 'GRAYLOG_HOST',
   GRAYLOG_PORT = 'GRAYLOG_PORT',
   GRAYLOG_BUFFER_SIZE = 'GRAYLOG_BUFFER_SIZE',
+
+  REDIS_PORT = 'REDIS_PORT',
+  REDIS_HOST = 'REDIS_HOST',
 }
 
 export const configuracao = (): IConfiguracao => {
@@ -55,5 +61,9 @@ export const configuracao = (): IConfiguracao => {
       arquivoVariaveis[TipoConfiguracao.GRAYLOG_PORT],
     [TipoConfiguracao.GRAYLOG_BUFFER_SIZE]:
       arquivoVariaveis[TipoConfiguracao.GRAYLOG_BUFFER_SIZE],
+    [TipoConfiguracao.REDIS_HOST]:
+      arquivoVariaveis[TipoConfiguracao.REDIS_HOST],
+    [TipoConfiguracao.REDIS_PORT]:
+      arquivoVariaveis[TipoConfiguracao.REDIS_PORT],
   };
 };
