@@ -1,5 +1,4 @@
 import { Body, Controller, Get, HttpStatus, Post, Query } from '@nestjs/common';
-
 import {
   construirRespostaColecaoDto,
   construirRespostaSimplesDto,
