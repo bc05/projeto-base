@@ -5,7 +5,7 @@ import { MailProcessesTypes } from './mail-processes-types.enum';
 import { MAIL_QUEUE_NAME } from './mail-queue.consumer';
 
 @Injectable()
-export class MailQueueService {
+export class MailQueueProducer {
   private readonly logger = new Logger('MailConsumer');
 
   constructor(
@@ -14,8 +14,6 @@ export class MailQueueService {
 
   addMailToQueue<T>(queueName: MailProcessesTypes, data: T) {
     this.logger.log(`Add email in queue: ${queueName}`);
-    this.mailQueue.add(queueName, data, {
-      removeOnComplete: true,
-    });
+    this.mailQueue.add(queueName, data);
   }
 }

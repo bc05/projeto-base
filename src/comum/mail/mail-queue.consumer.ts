@@ -20,7 +20,8 @@ export class MailQueueConsumer {
   }
 
   @OnQueueError()
-  onError() {
+  onError(job: Job) {
+    console.debug(job);
     this.logger.error('queue error');
   }
 

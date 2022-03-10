@@ -14,6 +14,24 @@ export class BullConfigService implements SharedBullConfigurationFactory {
         host: this.configService.get(TipoConfiguracao.REDIS_HOST),
         port: +this.configService.get(TipoConfiguracao.REDIS_PORT),
       },
+
+      defaultJobOptions: {
+        attempts: +this.configService.get(
+          TipoConfiguracao.QUEUE_RETRY_ATTEMPTS,
+        ),
+        removeOnComplete: true,
+        backoff: {
+          type: 'fixed',
+          delay: +this.configService.get(TipoConfiguracao.QUEUE_RETRY_DELAY),
+        },
+        delay: 1000,
+      },
+
+      settings: {
+        retryProcessDelay: +this.configService.get(
+          TipoConfiguracao.QUEUE_RETRY_DELAY,
+        ),
+      },
     };
   }
 }

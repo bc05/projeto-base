@@ -15,6 +15,9 @@ export interface IConfiguracao {
   [TipoConfiguracao.REDIS_HOST]: string;
   [TipoConfiguracao.REDIS_PORT]: number;
 
+  [TipoConfiguracao.QUEUE_RETRY_ATTEMPTS]: number;
+  [TipoConfiguracao.QUEUE_RETRY_DELAY]: number;
+
   [TipoConfiguracao.MAIL_SMTP_HOST]: string;
   [TipoConfiguracao.MAIL_SMTP_PORT]: number;
   [TipoConfiguracao.MAIL_SMTP_USER]: string;
@@ -41,6 +44,9 @@ export enum TipoConfiguracao {
 
   REDIS_PORT = 'REDIS_PORT',
   REDIS_HOST = 'REDIS_HOST',
+
+  QUEUE_RETRY_ATTEMPTS = 'QUEUE_RETRY_ATTEMPTS',
+  QUEUE_RETRY_DELAY = 'QUEUE_RETRY_DELAY',
 
   MAIL_SMTP_HOST = 'MAIL_SMTP_HOST',
   MAIL_SMTP_PORT = 'MAIL_SMTP_PORT',
@@ -83,6 +89,10 @@ export const configuracao = (): IConfiguracao => {
       arquivoVariaveis[TipoConfiguracao.REDIS_PORT],
     [TipoConfiguracao.MAIL_SMTP_HOST]:
       arquivoVariaveis[TipoConfiguracao.MAIL_SMTP_HOST],
+    [TipoConfiguracao.QUEUE_RETRY_ATTEMPTS]:
+      arquivoVariaveis[TipoConfiguracao.QUEUE_RETRY_ATTEMPTS],
+    [TipoConfiguracao.QUEUE_RETRY_DELAY]:
+      arquivoVariaveis[TipoConfiguracao.QUEUE_RETRY_DELAY],
     [TipoConfiguracao.MAIL_SMTP_PORT]:
       arquivoVariaveis[TipoConfiguracao.MAIL_SMTP_PORT],
     [TipoConfiguracao.MAIL_SMTP_USER]:
