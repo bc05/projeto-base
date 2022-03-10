@@ -35,7 +35,8 @@ export class GraylogTCPAdapter implements ILoggerAdapter {
     });
   }
 
-  error(message: ILogErrorMessage): void {
+  error(message: ILogErrorMessage | string): void {
+    console.log('chamando o capiroto');
     this.winstonLogger.error(message);
   }
 }

@@ -8,8 +8,12 @@ export class CustomLogger extends ConsoleLogger {
     super();
   }
 
-  error(message: ILogErrorMessage) {
+  error(message: ILogErrorMessage | string) {
     this.loggerAdapter.error(message);
-    super.error(message.message);
+    super.error(this.getMessage(message));
+  }
+
+  private getMessage(message: ILogErrorMessage | string) {
+    return typeof message === 'string' ? message : message.message;
   }
 }
