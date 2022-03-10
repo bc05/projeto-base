@@ -7,14 +7,21 @@ import {
 } from '@nestjs/bull';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bull';
+import { IDataWelcomeMail } from './mail.interface';
 
-@Processor('mail')
+export const MAIL_QUEUE_NAME = 'mail';
+
+export enum EmailProcessTypes {
+  WELCOME = 'welcome',
+}
+
+@Processor({ name: MAIL_QUEUE_NAME })
 export class MailConsumer {
   private readonly logger = new Logger('MailConsumer');
 
   @OnQueueActive()
   onActive() {
-    this.logger.log('Queue active');
+    this.logger.log(`Queue ${EmailProcessTypes.WELCOME} active`);
   }
 
   @OnQueueError()
@@ -24,16 +31,19 @@ export class MailConsumer {
 
   @OnQueueCompleted()
   onCompleted() {
-    this.logger.log('Queue completed');
+    this.logger.log(
+      `Completed process from queue name: ${EmailProcessTypes.WELCOME}`,
+    );
   }
 
-  @Process('welcome')
-  sendMail(job: Job) {
-    this.logger.log('already to send mail :)', job.data);
+  @Process(EmailProcessTypes.WELCOME)
+  sendWelcomeMail(job: Job<IDataWelcomeMail>) {
+    this.logger.log(
+      `Initialize process from queue name: ${EmailProcessTypes.WELCOME}`,
+    );
 
-    // throw new InternalServerErrorException('deu tudo errado');
-    // throw Error('deu tudo errado');
-
+    // send mail here xD
+    console.log(job.data.nome);
     return true;
   }
 }

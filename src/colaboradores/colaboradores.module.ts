@@ -5,7 +5,7 @@ import { Colaborador, ColaboradorSchema } from './colaborador.schema';
 import { ColaboradoresController } from './colaboradores.controller';
 import { ColaboradoresRepository } from './colaboradores.repository';
 import { ColaboradoresService } from './colaboradores.service';
-import { MemberCreatedListener } from './listeners/member-created.listener';
+import { MemberListener } from './listeners/member.listener';
 
 @Module({
   imports: [
@@ -15,10 +15,6 @@ import { MemberCreatedListener } from './listeners/member-created.listener';
     MailModule,
   ],
   controllers: [ColaboradoresController],
-  providers: [
-    ColaboradoresService,
-    ColaboradoresRepository,
-    MemberCreatedListener,
-  ],
+  providers: [ColaboradoresService, ColaboradoresRepository, MemberListener],
 })
 export class ColaboradoresModule {}

@@ -1,17 +1,20 @@
 import { InjectQueue } from '@nestjs/bull';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Queue } from 'bull';
+import { EmailProcessTypes, MAIL_QUEUE_NAME } from './mail.consumer';
 
 @Injectable()
 export class MailService {
-  constructor(@InjectQueue('mail') private mailQueue: Queue) {}
+  private readonly logger = new Logger('MailConsumer');
 
-  async addWelcomeMailToQueue(data: any) {
-    console.log('add task send welcome mail to queue');
-    await this.mailQueue.add('welcome', data, {
-      delay: 5000,
+  constructor(
+    @InjectQueue(MAIL_QUEUE_NAME) private readonly mailQueue: Queue,
+  ) {}
+
+  addMailToQueue<T>(queueName: EmailProcessTypes, data: T) {
+    this.logger.log(`Add email in queue: ${queueName}`);
+    this.mailQueue.add(queueName, data, {
       removeOnComplete: true,
-      backoff: 1,
     });
   }
 }
