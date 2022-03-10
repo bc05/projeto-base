@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { configuracao } from 'src/core/configuration/configuracao';
 import { MailQueueConsumer, MAIL_QUEUE_NAME } from './mail-queue.consumer';
 import { MailQueueService } from './mail-queue.service';
+import { MailService } from './mail.service';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { MailQueueService } from './mail-queue.service';
       name: MAIL_QUEUE_NAME,
     }),
   ],
-  providers: [MailQueueService, MailQueueConsumer],
+  providers: [MailQueueService, MailQueueConsumer, MailService],
   exports: [MailQueueService],
 })
 export class MailModule {}

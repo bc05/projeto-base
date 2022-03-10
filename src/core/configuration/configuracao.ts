@@ -14,6 +14,13 @@ export interface IConfiguracao {
 
   [TipoConfiguracao.REDIS_HOST]: string;
   [TipoConfiguracao.REDIS_PORT]: number;
+
+  [TipoConfiguracao.MAIL_SMTP_HOST]: string;
+  [TipoConfiguracao.MAIL_SMTP_PORT]: number;
+  [TipoConfiguracao.MAIL_SMTP_USER]: string;
+  [TipoConfiguracao.MAIL_SMTP_PASSWORD]: string;
+  [TipoConfiguracao.MAIL_SMTP_FROM_NAME]: string;
+  [TipoConfiguracao.MAIL_SMTP_FROM_ADDRESS]: string;
 }
 
 export enum TipoConfiguracao {
@@ -34,6 +41,13 @@ export enum TipoConfiguracao {
 
   REDIS_PORT = 'REDIS_PORT',
   REDIS_HOST = 'REDIS_HOST',
+
+  MAIL_SMTP_HOST = 'MAIL_SMTP_HOST',
+  MAIL_SMTP_PORT = 'MAIL_SMTP_PORT',
+  MAIL_SMTP_USER = 'MAIL_SMTP_USER',
+  MAIL_SMTP_PASSWORD = 'MAIL_SMTP_PASSWORD',
+  MAIL_SMTP_FROM_NAME = 'MAIL_SMTP_FROM_NAME',
+  MAIL_SMTP_FROM_ADDRESS = 'MAIL_SMTP_FROM_ADDRESS',
 }
 
 export const configuracao = (): IConfiguracao => {
@@ -67,5 +81,17 @@ export const configuracao = (): IConfiguracao => {
       arquivoVariaveis[TipoConfiguracao.REDIS_HOST],
     [TipoConfiguracao.REDIS_PORT]:
       arquivoVariaveis[TipoConfiguracao.REDIS_PORT],
+    [TipoConfiguracao.MAIL_SMTP_HOST]:
+      arquivoVariaveis[TipoConfiguracao.MAIL_SMTP_HOST],
+    [TipoConfiguracao.MAIL_SMTP_PORT]:
+      arquivoVariaveis[TipoConfiguracao.MAIL_SMTP_PORT],
+    [TipoConfiguracao.MAIL_SMTP_USER]:
+      arquivoVariaveis[TipoConfiguracao.MAIL_SMTP_USER],
+    [TipoConfiguracao.MAIL_SMTP_PASSWORD]:
+      arquivoVariaveis[TipoConfiguracao.MAIL_SMTP_PASSWORD],
+    [TipoConfiguracao.MAIL_SMTP_FROM_NAME]:
+      arquivoVariaveis[TipoConfiguracao.MAIL_SMTP_FROM_NAME],
+    [TipoConfiguracao.MAIL_SMTP_FROM_ADDRESS]:
+      arquivoVariaveis[TipoConfiguracao.MAIL_SMTP_FROM_ADDRESS],
   };
 };

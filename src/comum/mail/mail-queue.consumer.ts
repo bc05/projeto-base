@@ -8,6 +8,7 @@ import {
 import { Logger } from '@nestjs/common';
 import { Job } from 'bull';
 import { IDataWelcomeMail } from './mail.interface';
+import { MailService } from './mail.service';
 
 export const MAIL_QUEUE_NAME = 'mail';
 
@@ -18,6 +19,8 @@ export enum EmailProcessTypes {
 @Processor({ name: MAIL_QUEUE_NAME })
 export class MailQueueConsumer {
   private readonly logger = new Logger('MailConsumer');
+
+  constructor(private mailService: MailService) {}
 
   @OnQueueActive()
   onActive() {
@@ -37,13 +40,21 @@ export class MailQueueConsumer {
   }
 
   @Process(EmailProcessTypes.WELCOME)
-  sendWelcomeMail(job: Job<IDataWelcomeMail>) {
+  async sendWelcomeMail(job: Job<IDataWelcomeMail>) {
     this.logger.log(
       `Initialize process from queue name: ${EmailProcessTypes.WELCOME}`,
     );
 
     // send mail here xD
     console.log(job.data.nome);
-    return true;
+
+    const info = await this.mailService.sendMail({
+      to: [job.data.email],
+      subject: `Welcome ${job.data.nome} `,
+      templateUrl: '',
+      data: {},
+    });
+
+    this.logger.log(`E-mail sent ${info.messageId}`);
   }
 }
