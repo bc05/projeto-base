@@ -1,10 +1,10 @@
 import { InjectQueue } from '@nestjs/bull';
 import { Injectable, Logger } from '@nestjs/common';
 import { Queue } from 'bull';
-import { EmailProcessTypes, MAIL_QUEUE_NAME } from './mail.consumer';
+import { EmailProcessTypes, MAIL_QUEUE_NAME } from './mail-queue.consumer';
 
 @Injectable()
-export class MailService {
+export class MailQueueService {
   private readonly logger = new Logger('MailConsumer');
 
   constructor(

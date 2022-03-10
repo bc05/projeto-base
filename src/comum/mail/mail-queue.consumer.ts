@@ -16,7 +16,7 @@ export enum EmailProcessTypes {
 }
 
 @Processor({ name: MAIL_QUEUE_NAME })
-export class MailConsumer {
+export class MailQueueConsumer {
   private readonly logger = new Logger('MailConsumer');
 
   @OnQueueActive()
