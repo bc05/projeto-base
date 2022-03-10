@@ -19,10 +19,10 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "move:ini": "cpx variaveis.ini ./dist",
+    "move:ini": "cp variaveis.ini ./dist",
     "prettier:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
     "prepare": "husky install",
-    "dc:up-no-api": "docker-compose up -d redis database elasticsearch graylog"
+    "dc:up-no-api": "docker-compose up -d redis database elasticsearch graylog mailcatcher"
   },
   "dependencies": {
     "@nestjs/bull": "^0.5.2",
@@ -33,6 +33,7 @@
     "@nestjs/mongoose": "^9.0.2",
     "@nestjs/platform-express": "^8.0.0",
     "@types/lodash": "^4.14.179",
+    "@types/nodemailer": "^6.4.4",
     "@types/winston": "^2.4.4",
     "bull": "^4.7.0",
     "class-transformer": "^0.5.1",
