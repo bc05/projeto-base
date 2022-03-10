@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import * as Handlebars from 'handlebars';
 import { createTransport, Transporter } from 'nodemailer';
 import { Address } from 'nodemailer/lib/mailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 import { TipoConfiguracao } from 'src/core/configuration/configuracao';
+import { lerArquivo } from '../adaptadores';
 import { ISendMailOptions } from './mail.interface';
 
 @Injectable()
@@ -32,20 +34,30 @@ export class MailService {
   async sendMail<T>(
     options: ISendMailOptions<T>,
   ): Promise<SMTPTransport.SentMessageInfo> {
+    const text = await this.mountText(options.template, options.data);
+    const html = await this.mountHtml(options.template, options.data);
+
     return this.transporter.sendMail({
       from: this.from,
       to: options.to,
       subject: options.subject,
-      text: this.mountText(options.data),
-      html: this.mountHtml(options.data),
+      text,
+      html,
     });
   }
 
-  private mountText<T>(data: T): string {
-    return 'texto aqui';
+  private async compileFile<T>(file: string, data: T): Promise<string> {
+    const arquivo = await lerArquivo([__dirname, 'templates', `${file}`]);
+
+    const templateHandlebars = Handlebars.compile(arquivo);
+    return templateHandlebars(data);
   }
 
-  private mountHtml<T>(data: T): string {
-    return '<b>html aqui</b>';
+  private async mountText<T>(template: string, data: T): Promise<string> {
+    return this.compileFile(`${template}.txt.hbs`, data);
+  }
+
+  private async mountHtml<T>(template: string, data: T): Promise<string> {
+    return this.compileFile(`${template}.html.hbs`, data);
   }
 }

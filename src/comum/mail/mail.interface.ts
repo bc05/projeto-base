@@ -1,11 +1,11 @@
 export interface ISendMailOptions<T> {
-  to: string[];
+  to: string | string[];
   subject: string;
-  templateUrl: string;
+  template: string;
   data: T;
 }
 
 export interface IDataWelcomeMail {
-  nome: string;
+  name: string;
   email: string;
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
-import { EmailProcessTypes } from 'src/comum/mail/mail-queue.consumer';
+import { MailProcessesTypes } from 'src/comum/mail/mail-processes-types.enum';
 import { MailQueueService } from 'src/comum/mail/mail-queue.service';
 import { IDataWelcomeMail } from 'src/comum/mail/mail.interface';
 
@@ -20,9 +20,9 @@ export class MemberListener {
   @OnEvent(MemberListenerActions.CREATED)
   handleMemberCreatedEvent(data: IMemberCreatedListenerData) {
     this.mailService.addMailToQueue<IDataWelcomeMail>(
-      EmailProcessTypes.WELCOME,
+      MailProcessesTypes.WELCOME,
       {
-        nome: data.name,
+        name: data.name,
         email: data.email,
       },
     );

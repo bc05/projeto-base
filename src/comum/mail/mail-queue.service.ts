@@ -1,7 +1,8 @@
 import { InjectQueue } from '@nestjs/bull';
 import { Injectable, Logger } from '@nestjs/common';
 import { Queue } from 'bull';
-import { EmailProcessTypes, MAIL_QUEUE_NAME } from './mail-queue.consumer';
+import { MailProcessesTypes } from './mail-processes-types.enum';
+import { MAIL_QUEUE_NAME } from './mail-queue.consumer';
 
 @Injectable()
 export class MailQueueService {
@@ -11,7 +12,7 @@ export class MailQueueService {
     @InjectQueue(MAIL_QUEUE_NAME) private readonly mailQueue: Queue,
   ) {}
 
-  addMailToQueue<T>(queueName: EmailProcessTypes, data: T) {
+  addMailToQueue<T>(queueName: MailProcessesTypes, data: T) {
     this.logger.log(`Add email in queue: ${queueName}`);
     this.mailQueue.add(queueName, data, {
       removeOnComplete: true,

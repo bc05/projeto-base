@@ -2,29 +2,21 @@ import {
   OnQueueActive,
   OnQueueCompleted,
   OnQueueError,
-  Process,
+  OnQueueFailed,
   Processor,
 } from '@nestjs/bull';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bull';
-import { IDataWelcomeMail } from './mail.interface';
-import { MailService } from './mail.service';
 
 export const MAIL_QUEUE_NAME = 'mail';
-
-export enum EmailProcessTypes {
-  WELCOME = 'welcome',
-}
 
 @Processor({ name: MAIL_QUEUE_NAME })
 export class MailQueueConsumer {
   private readonly logger = new Logger('MailConsumer');
 
-  constructor(private mailService: MailService) {}
-
   @OnQueueActive()
   onActive() {
-    this.logger.log(`Queue ${EmailProcessTypes.WELCOME} active`);
+    this.logger.log(`Queue ${MAIL_QUEUE_NAME} active`);
   }
 
   @OnQueueError()
@@ -32,29 +24,14 @@ export class MailQueueConsumer {
     this.logger.error('queue error');
   }
 
-  @OnQueueCompleted()
-  onCompleted() {
-    this.logger.log(
-      `Completed process from queue name: ${EmailProcessTypes.WELCOME}`,
-    );
+  @OnQueueFailed()
+  onFail(job: Job) {
+    console.debug(job);
+    this.logger.error('queue fail');
   }
 
-  @Process(EmailProcessTypes.WELCOME)
-  async sendWelcomeMail(job: Job<IDataWelcomeMail>) {
-    this.logger.log(
-      `Initialize process from queue name: ${EmailProcessTypes.WELCOME}`,
-    );
-
-    // send mail here xD
-    console.log(job.data.nome);
-
-    const info = await this.mailService.sendMail({
-      to: [job.data.email],
-      subject: `Welcome ${job.data.nome} `,
-      templateUrl: '',
-      data: {},
-    });
-
-    this.logger.log(`E-mail sent ${info.messageId}`);
+  @OnQueueCompleted()
+  onCompleted() {
+    this.logger.log(`Completed process from queue name: ${MAIL_QUEUE_NAME}`);
   }
 }
