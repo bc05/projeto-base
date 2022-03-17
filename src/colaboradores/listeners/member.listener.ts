@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
-import { MailProcessesTypes } from 'src/comum/mail/mail-processes-types.enum';
-import { MailQueueProducer } from 'src/comum/mail/mail-queue.producer';
-import { IDataWelcomeMail } from 'src/comum/mail/mail.interface';
+import { MailProcessesTypes } from '../../comum/mail/mail-processes-types.enum';
+import { MailQueueProducer } from '../../comum/mail/mail-queue.producer';
+import { IDataWelcomeMail } from '../../comum/mail/mail.interface';
 
 export interface IMemberCreatedListenerData {
   name: string;

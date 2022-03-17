@@ -1,3 +1,4 @@
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test } from '@nestjs/testing';
 import { Model } from 'mongoose';
@@ -20,12 +21,14 @@ describe('ColaboradoresService', () => {
           useValue: Model,
         },
         ColaboradoresRepository,
+        EventEmitter2,
       ],
     }).compile();
 
     mockColaboradorRepository = module.get<ColaboradoresRepository>(
       ColaboradoresRepository,
     );
+
     sut = module.get<ColaboradoresService>(ColaboradoresService);
   });
 
